@@ -10,10 +10,10 @@ const elfCalories = []
 // Require File System Module
 let fs = require('fs')
 // Array containing input.txt
-const inputArr = fs.readFileSync('./input.txt').toString().split("\n")
+let inputArr = fs.readFileSync('./input.txt').toString().split("\n")
 
 // Add calories and push each total amount to elfCalories array
-const addCalories = arr => {
+let addCalories = arr => {
     let total = 0 
     for (i in arr) {
         if (arr[i] !== "") {

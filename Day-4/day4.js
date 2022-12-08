@@ -1,3 +1,4 @@
+// --- Day 4: Camp Cleanup ---
 // https://adventofcode.com/2022/day/4
 
 // Require File System Module
@@ -30,9 +31,6 @@ let searchStorage = arr => arr.map( x => isOverlapping(x)).reduce((a,b) => a+ b)
 
 // Output (Part 1): 651
 ans1 = searchStorage(inputArr)
-
-
-
 // Part 2
 
 // Get all overlapping storage
