@@ -3,7 +3,6 @@
 
 // Require File System Module
 let fs = require('fs')
-const { parse } = require('path')
 // Array containing input.txt
 let inputArr = fs.readFileSync('./input.txt').toString().split("\n")
 // Answers for problem

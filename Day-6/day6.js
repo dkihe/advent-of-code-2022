@@ -3,7 +3,6 @@
 
 // Require File System Module
 let fs = require('fs')
-const { parse } = require('path')
 // Array containing input.txt
 let inputArr = fs.readFileSync('./input.txt').toString()
 // Answers for problem
@@ -13,8 +12,6 @@ let ans1, ans2
 let hasDuplicates = arr => {
     for (let i = 0; i < arr.length; i++) {
         let range = arr.slice(i+1)
-        // console.log(range)
-        // console.log(arr[i])
         if (range.indexOf(arr[i]) >= 0) {
             return true
         }
@@ -23,12 +20,12 @@ let hasDuplicates = arr => {
 }
 
 // Subroutine to find start-of-packet marker
-let findMarker = arr => {
+let findMarker = (arr, len) => {
     let start, end
-    for (end = 3; end <= arr.length-2; end++) {
-        start = end - 3
-        let test = arr.slice(start, end+1)
-        let dup = hasDuplicates(test)
+    for (end = len - 1; end <= arr.length-2; end++) {
+        start = end - (len -1)
+        let chunk = arr.slice(start, end+1)
+        let dup = hasDuplicates(chunk)
         if (!dup) {
             return end + 1
         }
@@ -36,5 +33,9 @@ let findMarker = arr => {
 }
 
 // Output (Part 1): 1235
-ans1 = findMarker(inputArr)
+ans1 = findMarker(inputArr, 4)
 console.log(ans1)
+
+// Output (Part 2): 3051
+ans1 = findMarker(inputArr, 14)
+console.log(ans2)

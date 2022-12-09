@@ -1,7 +1,6 @@
 // https://adventofcode.com/2022/day/5/input
 // Require File System Module
 let fs = require('fs')
-const { parse } = require('path')
 // Array containing input.txt
 let inputArr = fs.readFileSync('./input.txt').toString().split("\n").slice(10)
 // Answers for problem
