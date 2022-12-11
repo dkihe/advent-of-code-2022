@@ -2,53 +2,73 @@
 // --- Day 7: No Space Left On Device ---
 
 // Require File System Module 
-const { dir } = require('console')
 let fs = require('fs')
-const { get } = require('http')
-const { parse } = require('path')
+const { stringify } = require('querystring')
 // Array containing input.txt
-let data = fs.readFileSync('./input.txt').toString().split("\n")
-// Answers for problem
-let ans1, ans2
+let data = fs.readFileSync('./test.txt').toString().split('\n')
 
-// Test data
-let testData = fs.readFileSync('./test.txt').toString().split("\n")
-// Hold path
-let path = []
+// Remove newline and carriage return from string
+data = data.map(x => x.trim())
+data = data.map(x => x.split(' '))
 
-data = data.map(x => x)
+// CWD: Current Working Directory
+let cwd = root = {}
 
-let directories = {
-    root: 0,
-}
+let stack = []
 
-// console.log(directories)
-for (const line of testData) {
-    let l = line.split(' ')
-
+for (l of data) {
     if (l[0] == '$') {
         if (l[1] == 'cd') {
-            if (l[2] == '..') {
-                path.pop()
+            if (l[2] == '/') {
+                cwd = root
+                stack = []
             }
+            else if (l[2] == '..') {
+                cwd = stack.pop()
+            }
+            // If l[2] is a directory name
             else {
-                if (directories[ l[2] ] == undefined) {
-                    directories[ l[2] ] = 0
+                // Check if cwd contains this dir as a key
+                if (!cwd.hasOwnProperty(l[2])) {
+                    cwd[l[2]] = {}
                 }
-                path.push(l[2])
+                // Push cwd to the stack
+                stack.push(cwd)
+                // cwd is now the new dir
+                cwd = cwd[l[2]]
             }
         }
     }
-    else if (!isNaN(l[0])) {
-        for (const d of path) {
-            directories[d] += parseInt(l[0])
+    else {
+        if (l[0] == 'dir') {
+            if (!cwd.hasOwnProperty(l[1])) {
+                cwd[l[1]] = {}
+            }
+        }
+        else {
+            cwd[l[1]] = parseInt(l[0])
         }
     }
 }
 
-// let test = data[12].split(' ')
-// console.log(test[0])
-// console.log(!isNaN(1))
+let  solve = dir => {
+    if (typeof dir == 'number') {
+        return (dir, 0)
+    }
+    let size = 0
+    let ans = 0
+    for (child of Object.values(dir)) {
+        let s,a
+        s = solve(child)
+        a = solve(child)
+        size += s
+        ans += a
+    }
+    if (size <=100000) {
+        ans += size
+    }
+    return (size, ans)
+}
 
-console.log(path)
-console.log(directories)
+console.log(solve(root))
+console.log(root)
