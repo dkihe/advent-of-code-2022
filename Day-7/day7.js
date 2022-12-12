@@ -51,24 +51,43 @@ for (l of data) {
     }
 }
 
-let  solve = dir => {
+let size = 0
+let ans = 0
+
+let solve = dir => {
     if (typeof dir == 'number') {
         return (dir, 0)
     }
-    let size = 0
-    let ans = 0
+    size = 0
+    ans = 0
     for (child of Object.values(dir)) {
-        let s,a
-        s = solve(child)
-        a = solve(child)
-        size += s
+        console.log("RECURSE: " + child)
+        let s, a
+        s = a = solve(child)
+        size += s        
         ans += a
+        console.log("AFTER RECURSION ----------> S: " + s + "    A: " + a)
     }
     if (size <=100000) {
         ans += size
+        console.log("CHECHING SIZE ----------> SIZE: " + size + "    ANS: " + ans)
     }
     return (size, ans)
 }
 
+// let solve = arr => {
+//     for (let key in arr) {
+//         console.log()
+//     }
+// }
+
 console.log(solve(root))
-console.log(root)
+
+// solve(root)
+// console.log(root)
+
+// for (child of Object.values(root)) {
+//     console.log(child)
+// }
+
+// console.log(Object.values(root))
