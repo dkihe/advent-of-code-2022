@@ -3,7 +3,6 @@
 
 // Require File System Module 
 let fs = require('fs')
-const { stringify } = require('querystring')
 // Array containing input.txt
 let data = fs.readFileSync('./test.txt').toString().split('\n')
 
