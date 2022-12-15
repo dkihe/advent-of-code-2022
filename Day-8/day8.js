@@ -23,14 +23,17 @@ for (let col = 0; col <= grid[0].length; col++) {
 
 let checkVisible = (row, col) => {
     let tree = grid[row][col]
-    // Check left adn right
+    // Check left and right
     let left = grid[row].slice(0,col)
     let right = grid[row].slice(col+1, grid[row].length)
-    if (tree > Math.max(...left) || tree > Math.max(...right)) {
-        console.log(true)
-        total++
-    }
+    let up = grid[col].slice(0,row)
+    let down = grid[col].slice(row+1, grid[col].length)
+    console.log(Math.max(...up))
+    // if (tree > Math.max(...left) || tree > Math.max(...right) || tree > Math.max(...up) || tree > Math.max(...down)) {
+    //     console.log(true)
+    //     total++
+    // }
 }
 
-console.log(grid[3][3])
-checkVisible(3,3)
+console.log(grid[0].slice(0,3))
+// checkVisible(3,3)
